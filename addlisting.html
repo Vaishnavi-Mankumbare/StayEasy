@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Add Listing</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="login-bg">
+
+<div class="login-container">
+
+<h2>Add New Property</h2>
+
+<input type="text" id="title" placeholder="Property Title">
+
+<input type="text" id="location" placeholder="Location">
+
+<input type="number" id="price" placeholder="Price per night">
+
+<input type="text" id="image" placeholder="Image URL">
+
+<button onclick="saveListing()">Add Listing</button>
+
+<button onclick="location.href='index.html'" class="remove-btn">Cancel</button>
+
+</div>
+
+</div>
+<script src="data.js"></script>
+<script src="script.js"></script>
+
+<script>
+
+async function saveListing(){
+
+  let user = localStorage.getItem("user");
+
+if(!user){
+alert("Login required to add property");
+window.location.href = "login.html";
+return;
+}
+
+let title = document.getElementById("title").value;
+let location = document.getElementById("location").value;
+let price = document.getElementById("price").value;
+let image = document.getElementById("image").value;
+
+// 1️⃣ Check empty fields
+if(!title || !location || !price || !image){
+alert("Please fill all fields");
+return;
+}
+
+const response = await fetch("/api/listings",{
+  method:"POST",
+  headers:{
+    "Content-Type":"application/json"
+  },
+  body: JSON.stringify({
+    title,
+    location,
+    price: Number(price),   // 2️⃣ Convert price to number
+    image
+  })
+});
+
+// 3️⃣ Check server error
+if(!response.ok){
+alert("Failed to add listing");
+return;
+}
+
+const data = await response.json();
+
+alert(data.message);
+
+window.location.href="index.html";
+
+}
+
+</script>
+
+
+</body>
+</html>

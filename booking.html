@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Book Property</title>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+</head>
+
+<body>
+
+<div class="form-box">
+
+<h2>Book Property</h2>
+
+<input type="text" id="name" placeholder="Full Name">
+
+<input type="email" id="email" placeholder="Email Address">
+
+<input type="tel" id="phone" placeholder="Mobile Number">
+
+<label>Check In</label>
+<input type="text" id="in" placeholder="Check In">
+<label>Check Out</label>
+<input type="text" id="out" placeholder="Check Out">
+
+
+<button onclick="confirmBooking()">Confirm Booking</button>
+
+</div>
+
+<script src="script.js"></script>
+<script>
+flatpickr("#in", {
+  minDate: "today",
+  dateFormat: "Y-m-d"
+});
+
+flatpickr("#out", {
+  minDate: new Date().fp_incr(1),
+  dateFormat: "Y-m-d"
+});
+</script>
+
+</body>
+</html>

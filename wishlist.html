@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>My Wishlist</title>
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<div class="topbar">
+  <button onclick="history.back()">⬅ Back</button>
+  <span>My Wishlist</span>
+</div>
+
+<div id="cards" class="cards"></div>
+
+
+
+<script src="data.js"></script>
+
+<script>
+
+function loadWishlist(){
+  let box = document.getElementById("cards");
+  box.innerHTML = "";   // 🔥 clears old cards
+
+  let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+
+  if(wishlist.length === 0){
+    box.innerHTML = "<h2>No favourites yet ❤️</h2>";
+    return;
+  }
+
+ wishlist.forEach((item,index)=>{
+   if(!item) return;
+    box.innerHTML += `
+      <div class="card">
+        <img src="${item.image}">
+        <h3>${item.title}</h3>
+        <p>${item.location}</p>
+        <p>₹${item.price}/night</p>
+
+        <button onclick="openDetails(${index})">View</button>
+        <button class="remove-btn" onclick="removeFromWishlist(${index})">
+          Remove ❌
+        </button>
+      </div>
+    `;
+  });
+}
+
+
+function openDetails(i){
+
+let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+
+localStorage.setItem("selected", JSON.stringify(wishlist[i]));
+localStorage.setItem("selectedIndex", i);
+
+window.location.href = "details.html";
+
+}
+
+function removeFromWishlist(i){
+
+let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+
+wishlist.splice(i,1);
+
+localStorage.setItem("wishlist", JSON.stringify(wishlist));
+
+alert("Removed from favourites");
+
+window.location.reload(); //  page refresh
+
+}
+loadWishlist();
+
+
+function openModal(type){
+
+let modal = document.getElementById("infoModal");
+
+let title = document.getElementById("modalTitle");
+let img = document.getElementById("modalImg");
+let text1 = document.getElementById("modalText1");
+let text2 = document.getElementById("modalText2");
+
+if(type === "about"){
+
+title.innerText = "About StayEasy";
+
+img.src = "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=1200&q=80";
+
+text1.innerText =
+"StayEasy is a property booking platform inspired by Airbnb. We help travelers find and book the perfect stays effortlessly.";
+
+text2.innerText =
+"Explore amazing properties, save your favorites, and book your next getaway with ease!";
+
+}
+
+if(type === "contact"){
+
+title.innerText = "Contact StayEasy";
+
+img.src = "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=1200&q=80";
+
+text1.innerText =
+"If you have any questions or need help with bookings, feel free to contact us.";
+
+text2.innerText =
+"Email: support@stayeasy.com | Phone: +91 98765 43210 | Location: Vasai, India";
+
+}
+
+if(type === "privacy"){
+
+title.innerText = "Privacy Policy";
+
+img.src = "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80";
+
+text1.innerText =
+"We respect your privacy and protect your personal data.";
+
+text2.innerText =
+"StayEasy never shares your information with third parties without your permission.";
+
+}
+
+if(type === "terms"){
+
+title.innerText = "Terms & Conditions";
+
+img.src = "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80";
+
+text1.innerText =
+"By using StayEasy, you agree to our terms and conditions.";
+
+text2.innerText =
+"Users must provide accurate information and follow our booking guidelines.";
+
+}
+
+document.getElementById("infoModal").style.display = "flex";
+
+setTimeout(()=>{
+  modal.classList.add("show");
+},10);
+
+}
+
+function closeModal(){
+
+let modal = document.getElementById("infoModal");
+
+modal.classList.remove("show");
+
+setTimeout(()=>{
+  modal.style.display = "none";
+},300);
+
+}
+</script>
+
+<!-- Modal -->
+<div id="infoModal" class="modal">
+
+  <div class="modal-box">
+
+    <span class="close-btn" onclick="closeModal()">×</span>
+
+    <h2 id="modalTitle" class="modal-title"></h2>
+
+    <img id="modalImg" class="modal-img">
+
+    <p id="modalText1" class="modal-text"></p>
+
+    <p id="modalText2" class="modal-text"></p>
+
+    <hr>
+
+    <button class="close-button" onclick="closeModal()">Close</button>
+
+  </div>
+
+</div>
+
+
+<footer class="footer">
+  <p>© 2026 StayEasy. All Rights Reserved.</p>
+
+  <div class="footer-links">
+    <a href="#" onclick="openModal('about')">About</a>
+    <a href="#" onclick="openModal('contact')">Contact</a>
+    <a href="#" onclick="openModal('privacy')">Privacy Policy</a>
+    <a href="#" onclick="openModal('terms')">Terms</a>
+  </div>
+</footer>
+
+
+
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+<title>Details</title>
+<link rel="stylesheet" href="style.css">
+<script>
+function goBooking(){
+  window.location.href = "booking.html";
+}
+function goBack(){
+  window.history.back();
+}
+</script>
+
+</head>
+
+<body onload="showDetails()">
+  
+
+  <div class="topbar">
+  <button onclick="goBack()">⬅ Back</button>
+  <span>Property Details</span>
+  <button onclick="removeFromDetails()" class="remove-btn">Remove Property</button>
+</div>
+
+
+<div class="details-container">
+
+<h1 id="title"></h1>
+<img id="img">
+
+<p id="loc"></p>
+<p id="price"></p>
+
+<button onclick="goBooking()">Book Now</button>
+
+</div>
+
+
+
+<script src="data.js"></script>
+<script src="script.js"></script>
+
+<script>
+function showDetails(){
+
+let d = JSON.parse(localStorage.getItem("selected"));
+
+if(!d){
+  document.body.innerHTML = "<h2>No property selected</h2><a href='index.html'>Go Back</a>";
+  return;
+}
+
+document.getElementById("title").innerText = d.title;
+document.getElementById("img").src = d.image;
+document.getElementById("loc").innerText = d.location;
+document.getElementById("price").innerText = "₹"+d.price+"/per night";
+
+}
+
+
+
+async function removeFromDetails(){
+
+let id = localStorage.getItem("selectedId");
+
+if(!id){
+alert("This property is a demo listing and cannot be deleted.");
+return;
+}
+
+let confirmDelete = confirm("Are you sure you want to delete this property?");
+
+if(!confirmDelete){
+return;
+}
+
+await fetch("/api/listings/"+id,{
+method:"DELETE"
+});
+
+alert("Property deleted successfully");
+
+window.location.href="index.html";
+
+}
+
+</script>
+</body>
+</html>

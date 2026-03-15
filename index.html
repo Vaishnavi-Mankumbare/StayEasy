@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+<title>StayEasy – Find your perfect stay</title>
+<link rel="stylesheet" href="style.css">
+
+
+</head>
+<body  >
+
+<header class="navbar">
+
+<div class="logo-area">
+<span>StayEasy</span>
+</div>
+
+<div class="search-box">
+<span class="search-icon">🔍</span>
+<input type="text" id="search" placeholder="Search destination..." onkeyup="searchHome()">
+</div>
+
+
+<nav>
+<a href="wishlist.html">Favourites ❤️</a>
+<a href="index.html">Home</a>
+
+<a href="login.html" id="loginBtn">Login</a>
+
+<button id="logoutBtn" onclick="logout()" style="display:none;">Logout</button>
+
+<button id="addBtn" class="add-btn" onclick="location.href='addlisting.html'">+ Add Listing</button>
+
+</nav>
+
+</header>
+
+
+<section id="cards" class="cards"></section>
+
+ <div id="addListingForm" class="login-container" style="display:none">
+
+<h2>Add New Property</h2>
+
+<input type="text" id="newTitle" placeholder="Property Title">
+
+<input type="text" id="newLocation" placeholder="Location">
+
+<input type="number" id="newPrice" placeholder="Price per night">
+
+<input type="text" id="newImage" placeholder="Image URL">
+
+<button onclick="addNewListing()">Add Listing</button>
+
+<button onclick="hideAddListingForm()" class="remove-btn">Cancel</button>
+
+</div>
+
+<p id="noResult" style="display:none; text-align:center; font-size:18px;">
+No properties found
+</p>
+
+<!-- INFO MODAL -->
+<div id="infoModal" class="modal">
+
+  <div class="modal-box">
+
+    <span class="close-btn" onclick="closeModal()">×</span>
+
+    <h2 id="modalTitle" class="modal-title"></h2>
+
+    <img id="modalImg" class="modal-img">
+
+    <p id="modalText1" class="modal-text"></p>
+
+    <p id="modalText2" class="modal-text"></p>
+
+    <hr>
+
+    <button class="close-button" onclick="closeModal()">Close</button>
+
+  </div>
+
+</div>
+
+<footer class="footer">
+  <p>© 2026 StayEasy. All Rights Reserved.</p>
+  <div class="footer-links">
+<a href="#" onclick="openModal('about')">About</a>
+<a href="#" onclick="openModal('contact')">Contact</a>
+<a href="#" onclick="openModal('privacy')">Privacy Policy</a>
+<a href="#" onclick="openModal('terms')">Terms</a>
+</div>
+</footer>
+
+ 
+</footer>
+
+ <script src="data.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
