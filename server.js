@@ -12,7 +12,7 @@ app.use(express.static(__dirname));
 
 /* MongoDB connection */
 
-mongoose.connect("mongodb://127.0.0.1:27017/stayeasy")
+mongoose.connect("mongodb+srv://StayEasy:stayeasyvaishu@clusterv.uhlgqly.mongodb.net/?appName=ClusterV")
 .then(()=> console.log("MongoDB connected"))
 .catch(err => console.log(err));
 
