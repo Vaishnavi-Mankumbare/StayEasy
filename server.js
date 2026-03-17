@@ -12,7 +12,6 @@ app.use(express.static(__dirname));
 
 /* MongoDB connection */
 
-// mongoose.connect("mongodb://127.0.0.1:27017/stayeasy")
 mongoose.connect("mongodb+srv://StayEasy:stayeasy123@clusterv.uhlgqly.mongodb.net/stayeasy?retryWrites=true&w=majority")
 .then(()=> console.log("MongoDB connected"))
 .catch(err => console.log(err));
