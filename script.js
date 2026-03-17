@@ -179,6 +179,7 @@ let email = document.getElementById("email").value.trim();
 let phone = document.getElementById("phone").value.trim();
 let checkIn = document.getElementById("in").value;
 let checkOut = document.getElementById("out").value;
+console.log(name, email, phone, checkIn, checkOut);
 
 /* empty check */
 
